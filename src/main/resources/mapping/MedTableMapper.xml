@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.med.mapper.MedTableMapper">
+    <resultMap id="BaseResultMap" type="com.med.model.MedTable">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="cold_hot" property="coldHot" jdbcType="VARCHAR"/>
+        <result column="sweat" property="sweat" jdbcType="VARCHAR"/>
+        <result column="pain" property="pain" jdbcType="VARCHAR"/>
+        <result column="appetite" property="appetite" jdbcType="VARCHAR"/>
+        <result column="pee" property="pee" jdbcType="VARCHAR"/>
+        <result column="defecate" property="defecate" jdbcType="VARCHAR"/>
+        <result column="appearance" property="appearance" jdbcType="VARCHAR"/>
+        <result column="lady" property="lady" jdbcType="VARCHAR"/>
+        <result column="thirsty" property="thirsty" jdbcType="VARCHAR"/>
+        <result column="energy" property="energy" jdbcType="VARCHAR"/>
+        <result column="sleep" property="sleep" jdbcType="VARCHAR"/>
+        <result column="pulse" property="pulse" jdbcType="VARCHAR"/>
+        <result column="others" property="others" jdbcType="VARCHAR"/>
+        <result column="med_name" property="medName" jdbcType="VARCHAR"/>
+        <result column="ingredients" property="ingredients" jdbcType="VARCHAR"/>
+        <result column="result" property="result" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--    <sql id="Base_Column_List">
+            id, type, cold_hot, sweat, pain, appetite, pee, defecate, appearance, lady, thirsty,
+            energy, sleep, pulse, others, med_name, ingredients, result
+        </sql>-->
+    <select id="selectByPain" resultMap="BaseResultMap" parameterType="String">
+        SELECT *
+        FROM sheet1
+        WHERE pain LIKE CONCAT('%', #{pain}, '%');
+    </select>
+
+    <!-- cold_hot, sweat, pain, appetite, pee, defecate, lady, thirsty, energy, sleep, pulse, others -->
+    <select id="selectTable" resultMap="BaseResultMap" parameterType="String">
+        SELECT *
+        FROM sheet1
+        WHERE pain LIKE CONCAT('%', #{pain}, '%')
+              AND cold_hot LIKE CONCAT('%', #{cold_hot}, '%')
+              AND sweat LIKE CONCAT('%', #{sweat}, '%')
+              AND appetite LIKE CONCAT('%', #{appetite}, '%')
+              AND pee LIKE CONCAT('%', #{pee}, '%')
+              AND defecate LIKE CONCAT('%', #{defecate}, '%')
+              AND appearance LIKE CONCAT('%', #{appearance}, '%')
+              AND lady LIKE CONCAT('%', #{lady}, '%')
+              AND thirsty LIKE CONCAT('%', #{thirsty}, '%')
+              AND energy LIKE CONCAT('%', #{energy}, '%')
+              AND sleep LIKE CONCAT('%', #{sleep}, '%')
+              AND pulse LIKE CONCAT('%', #{pulse}, '%')
+              AND others LIKE CONCAT('%', #{others}, '%');
+    </select>
+
+    <insert id="addTable" parameterType="String">
+        INSERT INTO sheet1 (type,
+        cold_hot,
+        sweat, pain, appetite,
+        pee, defecate, appearance,
+        lady, thirsty, energy,
+        sleep, pulse, others,
+        med_name, ingredients, result
+        )
+        VALUES (
+            "经方",
+            #{cold_hot,jdbcType=VARCHAR},
+        #{sweat,jdbcType=VARCHAR}, #{pain,jdbcType=VARCHAR},
+        #{appetite,jdbcType=VARCHAR},
+        #{pee,jdbcType=VARCHAR}, #{defecate,jdbcType=VARCHAR},
+        #{appearance,jdbcType=VARCHAR},
+        #{lady,jdbcType=VARCHAR}, #{thirsty,jdbcType=VARCHAR},
+        #{energy,jdbcType=VARCHAR},
+        #{sleep,jdbcType=VARCHAR}, #{pulse,jdbcType=VARCHAR}, #{others,jdbcType=VARCHAR},
+        #{med_name,jdbcType=VARCHAR}, #{ingredients,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="deleteMed" parameterType="java.lang.Integer">
+        DELETE FROM sheet1
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <!--
+    <insert id="insert" parameterType="com.med.model.MedTable">
+        INSERT INTO sheet1 (id, type, cold_hot,
+                            sweat, pain, appetite,
+                            pee, defecate, appearance,
+                            lady, thirsty, energy,
+                            sleep, pulse, others,
+                            med_name, ingredients, result
+        )
+        VALUES (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{coldHot,jdbcType=VARCHAR},
+                                        #{sweat,jdbcType=VARCHAR}, #{pain,jdbcType=VARCHAR},
+                                        #{appetite,jdbcType=VARCHAR},
+                                        #{pee,jdbcType=VARCHAR}, #{defecate,jdbcType=VARCHAR},
+                                        #{appearance,jdbcType=VARCHAR},
+                                        #{lady,jdbcType=VARCHAR}, #{thirsty,jdbcType=VARCHAR},
+                #{energy,jdbcType=VARCHAR},
+                #{sleep,jdbcType=VARCHAR}, #{pulse,jdbcType=VARCHAR}, #{others,jdbcType=VARCHAR},
+                #{medName,jdbcType=VARCHAR}, #{ingredients,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.med.model.MedTable">
+        insert into sheet1
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="coldHot != null">
+                cold_hot,
+            </if>
+            <if test="sweat != null">
+                sweat,
+            </if>
+            <if test="pain != null">
+                pain,
+            </if>
+            <if test="appetite != null">
+                appetite,
+            </if>
+            <if test="pee != null">
+                pee,
+            </if>
+            <if test="defecate != null">
+                defecate,
+            </if>
+            <if test="appearance != null">
+                appearance,
+            </if>
+            <if test="lady != null">
+                lady,
+            </if>
+            <if test="thirsty != null">
+                thirsty,
+            </if>
+            <if test="energy != null">
+                energy,
+            </if>
+            <if test="sleep != null">
+                sleep,
+            </if>
+            <if test="pulse != null">
+                pulse,
+            </if>
+            <if test="others != null">
+                others,
+            </if>
+            <if test="medName != null">
+                med_name,
+            </if>
+            <if test="ingredients != null">
+                ingredients,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="coldHot != null">
+                #{coldHot,jdbcType=VARCHAR},
+            </if>
+            <if test="sweat != null">
+                #{sweat,jdbcType=VARCHAR},
+            </if>
+            <if test="pain != null">
+                #{pain,jdbcType=VARCHAR},
+            </if>
+            <if test="appetite != null">
+                #{appetite,jdbcType=VARCHAR},
+            </if>
+            <if test="pee != null">
+                #{pee,jdbcType=VARCHAR},
+            </if>
+            <if test="defecate != null">
+                #{defecate,jdbcType=VARCHAR},
+            </if>
+            <if test="appearance != null">
+                #{appearance,jdbcType=VARCHAR},
+            </if>
+            <if test="lady != null">
+                #{lady,jdbcType=VARCHAR},
+            </if>
+            <if test="thirsty != null">
+                #{thirsty,jdbcType=VARCHAR},
+            </if>
+            <if test="energy != null">
+                #{energy,jdbcType=VARCHAR},
+            </if>
+            <if test="sleep != null">
+                #{sleep,jdbcType=VARCHAR},
+            </if>
+            <if test="pulse != null">
+                #{pulse,jdbcType=VARCHAR},
+            </if>
+            <if test="others != null">
+                #{others,jdbcType=VARCHAR},
+            </if>
+            <if test="medName != null">
+                #{medName,jdbcType=VARCHAR},
+            </if>
+            <if test="ingredients != null">
+                #{ingredients,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.med.model.MedTable">
+        update sheet1
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="coldHot != null">
+                cold_hot = #{coldHot,jdbcType=VARCHAR},
+            </if>
+            <if test="sweat != null">
+                sweat = #{sweat,jdbcType=VARCHAR},
+            </if>
+            <if test="pain != null">
+                pain = #{pain,jdbcType=VARCHAR},
+            </if>
+            <if test="appetite != null">
+                appetite = #{appetite,jdbcType=VARCHAR},
+            </if>
+            <if test="pee != null">
+                pee = #{pee,jdbcType=VARCHAR},
+            </if>
+            <if test="defecate != null">
+                defecate = #{defecate,jdbcType=VARCHAR},
+            </if>
+            <if test="appearance != null">
+                appearance = #{appearance,jdbcType=VARCHAR},
+            </if>
+            <if test="lady != null">
+                lady = #{lady,jdbcType=VARCHAR},
+            </if>
+            <if test="thirsty != null">
+                thirsty = #{thirsty,jdbcType=VARCHAR},
+            </if>
+            <if test="energy != null">
+                energy = #{energy,jdbcType=VARCHAR},
+            </if>
+            <if test="sleep != null">
+                sleep = #{sleep,jdbcType=VARCHAR},
+            </if>
+            <if test="pulse != null">
+                pulse = #{pulse,jdbcType=VARCHAR},
+            </if>
+            <if test="others != null">
+                others = #{others,jdbcType=VARCHAR},
+            </if>
+            <if test="medName != null">
+                med_name = #{medName,jdbcType=VARCHAR},
+            </if>
+            <if test="ingredients != null">
+                ingredients = #{ingredients,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.med.model.MedTable">
+        UPDATE sheet1
+        SET type        = #{type,jdbcType=VARCHAR},
+            cold_hot    = #{coldHot,jdbcType=VARCHAR},
+            sweat       = #{sweat,jdbcType=VARCHAR},
+            pain        = #{pain,jdbcType=VARCHAR},
+            appetite    = #{appetite,jdbcType=VARCHAR},
+            pee         = #{pee,jdbcType=VARCHAR},
+            defecate    = #{defecate,jdbcType=VARCHAR},
+            appearance  = #{appearance,jdbcType=VARCHAR},
+            lady        = #{lady,jdbcType=VARCHAR},
+            thirsty     = #{thirsty,jdbcType=VARCHAR},
+            energy      = #{energy,jdbcType=VARCHAR},
+            sleep       = #{sleep,jdbcType=VARCHAR},
+            pulse       = #{pulse,jdbcType=VARCHAR},
+            others      = #{others,jdbcType=VARCHAR},
+            med_name    = #{medName,jdbcType=VARCHAR},
+            ingredients = #{ingredients,jdbcType=VARCHAR},
+            result      = #{result,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>-->
+</mapper>
