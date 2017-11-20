@@ -34,8 +34,7 @@ function getResult() {
         pain_sel==" " &&
         appetite_sel==" "
     ){
-        getResultFromText();//选项框为空，则数据为用户输入的字符串
-        return;
+        return getResultFromText();//选项框为空，则数据为用户输入的字符串
     }
     request.open("GET", "/search/getResult" +
         "/" + cold_hot_sel +
@@ -64,13 +63,14 @@ function getResult() {
                         " " + jsObj[i].result + "\n\n";
                     $("#searchResult").text(resultString);*/
                 }
-
+                return jsObj;
             } else {
                 alert("error");
             }
 
         }
     }
+    return null;
 }
 
 function getResultFromText() {
@@ -112,6 +112,7 @@ function getResultFromText() {
                      " " + jsObj[i].result + "\n\n";
                      $("#searchResult").text(resultString);*/
                 }
+                return jsObj;
 
             } else {
                 alert("error");
@@ -119,6 +120,7 @@ function getResultFromText() {
 
         }
     }
+    return null;
 }
 
 /**
@@ -277,6 +279,7 @@ function deleteMed(id) {
 
 
 
+/*
 function createDiv(jsonObj,index){
     var frameTr = document.createElement("tr");
     var frameThId = document.createEventObject("th");
@@ -295,13 +298,68 @@ function createDiv(jsonObj,index){
     var bodyFa = document.getElementById("resultTableId");//通过id号获取frameDiv 的父类（也就是上一级的节点）
     bodyFa .appendChild(frameTr);//把创建的节点frameDiv 添加到父类body 中
 }
+*/
+
+function getInitialData() {
+
+    var request = new XMLHttpRequest();
+    request.open("GET", "/search/getSelect");
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                var responseObj = request.response;//得到json数组字符串
+                var jsObj = JSON.parse(responseObj);//转换成json数组对象
+                //$("#cold_hot_1").append("<option value='abc'>" + "123"+ "</option>");
+                for(var i=0;i<jsObj.cold_hot.length;i++){
+                    $("#cold_hot_1").append("<option value="+jsObj.cold_hot[i]+">" + jsObj.cold_hot[i]+ "</option>");
+                }
+                for(var i=0;i<jsObj.sweat.length;i++){
+                    $("#sweat_1").append("<option value="+jsObj.sweat[i]+">" + jsObj.sweat[i]+ "</option>");
+                }
+                for(var i=0;i<jsObj.pain.length;i++){
+                    $("#pain_1").append("<option value="+jsObj.pain[i]+">" + jsObj.pain[i]+ "</option>");
+                }
+                for(var i=0;i<jsObj.appetite.length;i++){
+                    $("#appetite_1").append("<option value="+jsObj.appetite[i]+">" + jsObj.appetite[i]+ "</option>");
+                }
+                //渲染插件
+                $("#cold_hot_1").multiselect();
+                $("#sweat_1").multiselect();
+                $("#pain_1").multiselect();
+                $("#appetite_1").multiselect();
+                //return jsObj.cold_hot;
+                /*for (var i=0,len = jsObj.length;i<len;i++){
+                    var coldHotStrings = jsObj[i].coldHot.split("，");
+                    console.log(coldHotStrings);
+                }*/
+
+            } else {
+                alert("error");
+            }
+
+        }
+    }
+}
+
+$(
+    function () {
+        getInitialData();
+    }
+);
+
 
 //提交检测
 $(document).ready(function(){
-    $("#cold_hot_1").multiselect();
-    $("#sweat_1").multiselect();
-    $("#pain_1").multiselect();
-    $("#appetite_1").multiselect();
+
+    //动态获取选项列表
+    /*var flag = true;
+    while (flag){
+        if(getInitialData() == true){
+            flag == false;
+        }
+    }*/
+
 
     $("#cold_hot_add").multiselect();
     $("#sweat_add").multiselect();
@@ -319,4 +377,6 @@ $(document).ready(function(){
     $("#med_name_add").multiselect();
     $("#ingredients_add").multiselect();
     $("#result_add").multiselect();
+
+
 });

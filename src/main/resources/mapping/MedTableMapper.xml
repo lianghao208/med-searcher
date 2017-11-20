@@ -50,6 +50,66 @@
               AND others LIKE CONCAT('%', #{others}, '%');
     </select>
 
+
+    <select id="selectTableLike" resultMap="BaseResultMap" >
+        SELECT *
+        FROM sheet1
+          WHERE
+          <foreach collection="cold_hot" item = "cold_hot" separator="AND">
+              cold_hot LIKE CONCAT('%', #{cold_hot}, '%')
+          </foreach>
+          AND
+          <foreach collection="sweat" item = "sweat" separator="AND">
+              sweat LIKE CONCAT('%', #{sweat}, '%')
+          </foreach>
+          AND
+          <foreach collection="pain" item = "pain" separator="AND">
+              pain LIKE CONCAT('%', #{pain}, '%')
+          </foreach>
+        AND
+        <foreach collection="appetite" item = "appetite" separator="AND">
+            appetite LIKE CONCAT('%', #{appetite}, '%')
+        </foreach>
+        AND
+        <foreach collection="pee" item = "pee" separator="AND">
+            pee LIKE CONCAT('%', #{pee}, '%')
+        </foreach>
+        AND
+        <foreach collection="defecate" item = "defecate" separator="AND">
+            defecate LIKE CONCAT('%', #{defecate}, '%')
+        </foreach>
+        AND
+        <foreach collection="appearance" item = "appearance" separator="AND">
+            appearance LIKE CONCAT('%', #{appearance}, '%')
+        </foreach>
+        AND
+        <foreach collection="lady" item = "lady" separator="AND">
+            lady LIKE CONCAT('%', #{lady}, '%')
+        </foreach>
+        AND
+        <foreach collection="thirsty" item = "thirsty" separator="AND">
+            thirsty LIKE CONCAT('%', #{thirsty}, '%')
+        </foreach>
+        AND
+        <foreach collection="energy" item = "energy" separator="AND">
+            energy LIKE CONCAT('%', #{energy}, '%')
+        </foreach>
+        AND
+        <foreach collection="sleep" item = "sleep" separator="AND">
+            sleep LIKE CONCAT('%', #{sleep}, '%')
+        </foreach>
+        AND
+        <foreach collection="pulse" item = "pulse" separator="AND">
+            pulse LIKE CONCAT('%', #{pulse}, '%')
+        </foreach>
+        AND
+        <foreach collection="others" item = "others" separator="AND">
+            others LIKE CONCAT('%', #{others}, '%')
+        </foreach>
+
+
+
+    </select>
     <insert id="addTable" parameterType="String">
         INSERT INTO sheet1 (type,
         cold_hot,

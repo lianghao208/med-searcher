@@ -19,6 +19,13 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes=MedSearcherApplication.class)// 指定spring-boot的启动类
 public class MedTableMapperTest {
     @Test
+    public void selectTableLike() throws Exception {
+        String[] strs = {"%恶风%","%发热%"};
+        //List<MedTable> medTable = medTableMapper.selectTableLike(strs);
+        //System.out.println(medTable);
+    }
+
+    @Test
     public void selectTable() throws Exception {
         List<MedTable> medTable = medTableMapper.selectTable("",
                 "",

@@ -53,6 +53,11 @@ public class MedTableServiceImpl implements MedTableService {
     }
 
     @Override
+    public List<MedTable> getTableLike(String[] cold_hot, String[] sweat, String[] pain, String[] appetite, String[] pee, String[] defecate, String[] appearance, String[] lady, String[] thirsty, String[] energy, String[] sleep, String[] pulse, String[] others) {
+        return medTableMapper.selectTableLike(cold_hot, sweat, pain, appetite, pee, defecate,appearance, lady, thirsty, energy, sleep, pulse, others);
+    }
+
+    @Override
     public Boolean addMed(String cold_hot,
                           String sweat,
                           String pain,

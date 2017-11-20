@@ -53,4 +53,18 @@ public interface MedTableMapper {
                      @Param(value="result")String result);
 
     Boolean deleteMed(Integer id);
+
+    List<MedTable> selectTableLike(@Param(value="cold_hot")String[] cold_hot,
+                                   @Param(value="sweat")String[] sweat,
+                                   @Param(value="pain")String[] pain,
+                                   @Param(value="appetite")String[] appetite,
+                                   @Param(value="pee")String[] pee,
+                                   @Param(value="defecate")String[] defecate,
+                                   @Param(value="appearance")String[] appearance,
+                                   @Param(value="lady")String[] lady,
+                                   @Param(value="thirsty")String[] thirsty,
+                                   @Param(value="energy")String[] energy,
+                                   @Param(value="sleep")String[] sleep,
+                                   @Param(value="pulse")String[] pulse,
+                                   @Param(value="others")String[] others);
 }

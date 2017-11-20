@@ -6,7 +6,7 @@ import com.med.service.MedTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Roy on 2017/11/15.
@@ -18,9 +18,47 @@ public class MedSearchController {
     @Autowired
     private MedTableService medTableService;
 
+    private Set<String> coldHotSelectSet = new HashSet<>();
+    private Set<String> sweatSelectSet = new HashSet<>();
+    private Set<String> painSelectSet = new HashSet<>();
+    private Set<String> appetiteSelectSet = new HashSet<>();
+    private String[] coldHotSets;
+    private String[] sweatSets;
+    private String[] painSets;
+    private String[] appetiteSets;
     @GetMapping("/hello")
     public String helloWorld(){
         return "Hello World";
+    }
+
+    @GetMapping("/getSelect")
+    public Map<String,Set<String>> getSelect(){
+        Map<String,Set<String>> result = new HashMap<>();
+        List<MedTable> medTables = medTableService.getTable("", "", "", "", "", "","", "", "", "", "", "", "");
+        for (MedTable med : medTables){
+            coldHotSets = med.getColdHot().split("，");
+            sweatSets = med.getSweat().split("，");
+            painSets = med.getPain().split("，");
+            appetiteSets = med.getAppetite().split("，");
+            for (int i=0;i<coldHotSets.length;i++){
+                coldHotSelectSet.add(coldHotSets[i]);
+            }
+            for (int i=0;i<sweatSets.length;i++){
+                sweatSelectSet.add(sweatSets[i]);
+            }
+            for (int i=0;i<painSets.length;i++){
+                painSelectSet.add(painSets[i]);
+            }
+            for (int i=0;i<appetiteSets.length;i++){
+                appetiteSelectSet.add(appetiteSets[i]);
+            }
+        }
+        result.put("cold_hot",coldHotSelectSet);
+        result.put("sweat",sweatSelectSet);
+        result.put("pain",painSelectSet);
+        result.put("appetite",appetiteSelectSet);
+        return result;
+
     }
 
     @GetMapping("/getResult/{cold_hot}/{sweat}/{pain}/{appetite}/{pee}/{defecate}/{appearance}/{lady}/{thirsty}/{energy}/{sleep}/{pulse}/{others}")
@@ -39,20 +77,46 @@ public class MedSearchController {
             @PathVariable("pulse") String pulse,
             @PathVariable("others") String others){
         //TODO 可优化成语法检查器
-        cold_hot = cold_hot.replace(",","，");
-        sweat = sweat.replace(",","，");
-        pain = pain.replace(",","，");
-        appetite = appetite.replace(",","，");
-        pee = pee.replace(",","，");
-        defecate = defecate.replace(",","，");
-        appearance = appearance.replace(",","，");
-        lady = lady.replace(",","，");
-        thirsty = thirsty.replace(",","，");
-        energy = energy.replace(",","，");
-        sleep = sleep.replace(",","，");
-        pulse = pulse.replace(",","，");
-        others = others.replace(",","，");
-        List<MedTable> medTables = medTableService.getTable(cold_hot, sweat, pain, appetite, pee, defecate,appearance, lady, thirsty, energy, sleep, pulse, others);
+        cold_hot = cold_hot.replace(" ","");
+        sweat = sweat.replace(" ","");
+        pain = pain.replace(" ","");
+        appetite = appetite.replace(" ","");
+        pee = pee.replace(" ","");
+        defecate = defecate.replace(" ","");
+        appearance = appearance.replace(" ","");
+        lady = lady.replace(" ","");
+        thirsty = thirsty.replace(" ","");
+        energy = energy.replace(" ","");
+        sleep = sleep.replace(" ","");
+        pulse = pulse.replace(" ","");
+        others = others.replace(" ","");
+
+        String[] cold_hot_strings = cold_hot.split(",");
+        String[] sweat_strings = sweat.split(",");
+        String[] pain_strings = pain.split(",");
+        String[] appetite_strings = appetite.split(",");
+        String[] pee_strings = pee.split(",");
+        String[] defecate_strings = defecate.split(",");
+        String[] appearance_strings = appearance.split(",");
+        String[] lady_strings = lady.split(",");
+        String[] thirsty_strings = thirsty.split(",");
+        String[] energy_strings = energy.split(",");
+        String[] sleep_strings = sleep.split(",");
+        String[] pulse_strings = pulse.split(",");
+        String[] others_strings = others.split(",");
+        List<MedTable> medTables = medTableService.getTableLike(cold_hot_strings,
+                sweat_strings,
+                pain_strings,
+                appetite_strings,
+                pee_strings,
+                defecate_strings,
+                appearance_strings,
+                lady_strings,
+                thirsty_strings,
+                energy_strings,
+                sleep_strings,
+                pulse_strings,
+                others_strings);
         return medTables;
     }
 

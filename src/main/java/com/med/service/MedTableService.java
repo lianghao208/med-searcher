@@ -22,6 +22,21 @@ public interface MedTableService {
                             String sleep,
                             String pulse,
                             String others);
+
+    List<MedTable> getTableLike(String[] cold_hot,
+                            String[] sweat,
+                            String[] pain,
+                            String[] appetite,
+                            String[] pee,
+                            String[] defecate,
+                            String[] appearance,
+                            String[] lady,
+                            String[] thirsty,
+                            String[] energy,
+                            String[] sleep,
+                            String[] pulse,
+                            String[] others);
+
     Boolean addMed(String cold_hot,
                    String sweat,
                    String pain,
