@@ -237,13 +237,13 @@ function insertRowToTable(jsonObj) {
     var tdResult = tr.insertCell();
     var tdDelete = tr.insertCell();
     tdId.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
-    tdColdHot.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
-    tdSweat.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
-    tdPain.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
-    tdMedName.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
-    tdIngredients.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width=1000px");
-    tdResult.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
-    tdDelete.setAttribute("style","border: 1px double #1a237e;font-size: 20px;");
+    tdColdHot.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
+    tdSweat.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
+    tdPain.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
+    tdMedName.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
+    tdIngredients.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
+    tdResult.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
+    tdDelete.setAttribute("style","border: 1px double #1a237e;font-size: 20px;width: auto");
 
     tdId.innerHTML=jsonObj.id;
     tdColdHot.innerHTML=jsonObj.coldHot;
