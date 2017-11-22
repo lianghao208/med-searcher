@@ -3,15 +3,18 @@ package com.med.controller;
 import com.med.mapper.MedTableMapper;
 import com.med.model.MedTable;
 import com.med.service.MedTableService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
 /**
  * Created by Roy on 2017/11/15.
  */
-@RestController
+@Controller
 @RequestMapping("/search")
 public class MedSearchController {
 
@@ -31,7 +34,15 @@ public class MedSearchController {
         return "Hello World";
     }
 
+    @GetMapping("/getMedById")
+    @ResponseBody
+    public List<MedTable>  getMedById(@RequestParam("id") String id){
+
+        return medTableService.getTableById(Integer.valueOf(id));
+    }
+
     @GetMapping("/getSelect")
+    @ResponseBody
     public Map<String,Set<String>> getSelect(){
         Map<String,Set<String>> result = new HashMap<>();
         List<MedTable> medTables = medTableService.getTable("", "", "", "", "", "","", "", "", "", "", "", "");
@@ -62,6 +73,7 @@ public class MedSearchController {
     }
 
     @GetMapping("/getResult/{cold_hot}/{sweat}/{pain}/{appetite}/{pee}/{defecate}/{appearance}/{lady}/{thirsty}/{energy}/{sleep}/{pulse}/{others}")
+    @ResponseBody
     public List<MedTable> getResult(
             @PathVariable("cold_hot") String cold_hot,
             @PathVariable("sweat") String sweat,
@@ -121,6 +133,7 @@ public class MedSearchController {
     }
 
     @PostMapping("/addMed")
+    @ResponseBody
     public void addMed(
             @RequestParam("cold_hot") String cold_hot,
             @RequestParam("sweat") String sweat,
@@ -160,7 +173,46 @@ public class MedSearchController {
 
     }
 
+    @PostMapping("/updateResult")
+    @ResponseBody
+    public Boolean updateMed(@RequestParam("id") String id,
+                             @RequestParam("cold_hot") String cold_hot,
+                             @RequestParam("sweat") String sweat,
+                             @RequestParam("pain") String pain,
+                             @RequestParam("appetite") String appetite,
+                             @RequestParam("pee") String pee,
+                             @RequestParam("defecate") String defecate,
+                             @RequestParam("appearance") String appearance,
+                             @RequestParam("lady") String lady,
+                             @RequestParam("thirsty") String thirsty,
+                             @RequestParam("energy") String energy,
+                             @RequestParam("sleep") String sleep,
+                             @RequestParam("pulse") String pulse,
+                             @RequestParam("others") String others,
+                             @RequestParam("med_name") String med_name,
+                             @RequestParam("ingredients") String ingredients,
+                             @RequestParam("result") String result){
+        return medTableService.updateMed(Integer.valueOf(id),
+                                        cold_hot,
+                                        sweat,
+                                        pain,
+                                        appetite,
+                                        pee,
+                                        defecate,
+                                        appearance,
+                                        lady,
+                                        thirsty,
+                                        energy,
+                                        sleep,
+                                        pulse,
+                                        others,
+                                        med_name,
+                                        ingredients,
+                                        result);
+    }
+
     @PostMapping("/deleteMed")
+    @ResponseBody
     public void deleteMed(
             @RequestParam("id") Integer id){
 

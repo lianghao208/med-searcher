@@ -18,8 +18,8 @@ public class MedTableServiceImpl implements MedTableService {
     private MedTableMapper medTableMapper;
 
     @Override
-    public List<MedTable> getTableByPain(String pain) {
-        return medTableMapper.selectByPain(pain);
+    public List<MedTable> getTableById(Integer id) {
+        return medTableMapper.selectById(id);
     }
 
     @Override
@@ -112,5 +112,27 @@ public class MedTableServiceImpl implements MedTableService {
     @Override
     public Boolean deleteMed(Integer id) {
         return medTableMapper.deleteMed(id);
+    }
+
+    @Override
+    public Boolean updateMed(Integer id, String cold_hot, String sweat, String pain, String appetite, String pee, String defecate, String appearance, String lady, String thirsty, String energy, String sleep, String pulse, String others, String med_name, String ingredients, String result) {
+        return medTableMapper.updateMed(
+                id,
+                cold_hot,
+                sweat,
+                pain,
+                appetite,
+                pee,
+                defecate,
+                appearance,
+                lady,
+                thirsty,
+                energy,
+                sleep,
+                pulse,
+                others,
+                med_name,
+                ingredients,
+                result);
     }
 }

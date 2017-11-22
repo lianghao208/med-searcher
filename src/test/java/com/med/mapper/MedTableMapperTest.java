@@ -47,7 +47,7 @@ public class MedTableMapperTest {
     MedTableMapper medTableMapper;
     @Test
     public void selectByPain() throws Exception {
-        List<MedTable> medTable = medTableMapper.selectByPain("头痛");
+        List<MedTable> medTable = medTableMapper.selectById(1);
         System.out.println(medTable);
     }
 

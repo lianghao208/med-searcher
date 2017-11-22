@@ -131,24 +131,25 @@ function addMed() {
     request.open("POST", "/search/addMed",true);
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     //TODO 补全代码
-    if(document.getElementById("cold_hot_add").value == " " &&
-        document.getElementById("pain_add").value == " " &&
-        document.getElementById("pain_add").value == " " &&
-        document.getElementById("appetite_add").value == " " &&
-        document.getElementById("pee_add").value == " " &&
-        document.getElementById("defecate_add").value == " " &&
-        document.getElementById("appearance_add").value == " " &&
-        document.getElementById("lady_add").value == " " &&
-        document.getElementById("thirsty_add").value == " " &&
-        document.getElementById("energy_add").value == " " &&
-        document.getElementById("sleep_add").value == " " &&
-        document.getElementById("pulse_add").value == " " &&
-        document.getElementById("others_add").value == " " &&
-        document.getElementById("med_name_add").value == " " &&
-        document.getElementById("ingredients_add").value == " " &&
-        document.getElementById("result_add").value == " "
+    if(document.getElementById("cold_hot_add").value == "" &&
+        document.getElementById("sweat_add").value == "" &&
+        document.getElementById("pain_add").value == "" &&
+        document.getElementById("appetite_add").value == "" &&
+        document.getElementById("pee_add").value == "" &&
+        document.getElementById("defecate_add").value == "" &&
+        document.getElementById("appearance_add").value == "" &&
+        document.getElementById("lady_add").value == "" &&
+        document.getElementById("thirsty_add").value == "" &&
+        document.getElementById("energy_add").value == "" &&
+        document.getElementById("sleep_add").value == "" &&
+        document.getElementById("pulse_add").value == "" &&
+        document.getElementById("others_add").value == "" &&
+        document.getElementById("med_name_add").value == "" &&
+        document.getElementById("ingredients_add").value == "" &&
+        document.getElementById("result_add").value == ""
     ){
         addMedFromText();//选项框为空，则数据为用户输入的字符串
+        alert("ok");
         return;
     }
     request.send("cold_hot="+document.getElementById("cold_hot_add").value + "&" +
@@ -251,7 +252,14 @@ function insertRowToTable(jsonObj) {
     tdMedName.innerHTML=jsonObj.medName;
     tdIngredients.innerHTML=jsonObj.ingredients;
     tdResult.innerHTML=jsonObj.result;
-    tdDelete.innerHTML="<input id = "+ jsonObj.id + " name='delete' value='删除' type='button' onclick='deleteMed(id)'/>";
+    tdDelete.innerHTML="<input id = "+ jsonObj.id + "update"+" name="+jsonObj.id+" value='修改' type='button' onclick='updateMed(name)'/>" +
+        "<br>"+
+        "<br>"+
+        "<input id = "+ jsonObj.id + "delete" + " name="+jsonObj.id+" value='删除' type='button' onclick='deleteMed(name) '/>";
+}
+
+function updateMed(id) {
+    window.open("/update_med.html?id="+id,"_blank");
 }
 
 /**
@@ -262,12 +270,12 @@ function deleteMed(id) {
         var request = new XMLHttpRequest();
         request.open("POST", "/search/deleteMed",true);
         request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        //TODO 补全代码
         request.send("id="+id);
         request.onreadystatechange = function () {
             if (request.readyState === 4) {
                 if (request.status === 200) {
                     alert("删除药方成功！");
+                    getResult();
                 }
             } else {
                 alert("删除药方失败！");

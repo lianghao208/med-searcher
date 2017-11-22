@@ -25,10 +25,10 @@
             id, type, cold_hot, sweat, pain, appetite, pee, defecate, appearance, lady, thirsty,
             energy, sleep, pulse, others, med_name, ingredients, result
         </sql>-->
-    <select id="selectByPain" resultMap="BaseResultMap" parameterType="String">
+    <select id="selectById" resultMap="BaseResultMap" parameterType="Integer">
         SELECT *
         FROM sheet1
-        WHERE pain LIKE CONCAT('%', #{pain}, '%');
+        WHERE id = #{id};
     </select>
 
     <!-- cold_hot, sweat, pain, appetite, pee, defecate, lady, thirsty, energy, sleep, pulse, others -->
@@ -137,6 +137,44 @@
         DELETE FROM sheet1
         WHERE id = #{id,jdbcType=INTEGER}
     </delete>
+
+    <update id="updateMed" parameterType="java.util.Map">
+        update sheet1
+        SET
+            cold_hot = #{cold_hot,jdbcType=VARCHAR},
+
+            sweat = #{sweat,jdbcType=VARCHAR},
+
+            pain = #{pain,jdbcType=VARCHAR},
+
+            appetite = #{appetite,jdbcType=VARCHAR},
+
+            pee = #{pee,jdbcType=VARCHAR},
+
+            defecate = #{defecate,jdbcType=VARCHAR},
+
+            appearance = #{appearance,jdbcType=VARCHAR},
+
+            lady = #{lady,jdbcType=VARCHAR},
+
+            thirsty = #{thirsty,jdbcType=VARCHAR},
+
+            energy = #{energy,jdbcType=VARCHAR},
+
+            sleep = #{sleep,jdbcType=VARCHAR},
+
+            pulse = #{pulse,jdbcType=VARCHAR},
+
+            others = #{others,jdbcType=VARCHAR},
+
+            med_name = #{med_name,jdbcType=VARCHAR},
+
+            ingredients = #{ingredients,jdbcType=VARCHAR},
+
+            result = #{result,jdbcType=VARCHAR}
+
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <!--
     <insert id="insert" parameterType="com.med.model.MedTable">
         INSERT INTO sheet1 (id, type, cold_hot,
